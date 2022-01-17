@@ -22,45 +22,34 @@ def read_words():
     dict_words = {}
     character = "_"
     revealed_word = []
+    attempts = 0
+
     with open("./archivos/data.txt", "r", encoding="utf-8") as file:
         for line in file:
             word_list.append(line.strip())
     dict_words = dict(enumerate(word_list))
-    # return dict_words
-
     random_word = dict_words.get(random.randint(0, len(dict_words)))
-    print(random_word)
 
     size_word = len(random_word)
     revealed_word = list(random_word)
     hidden_word = [character for i in range(size_word)]
-    listToStr = " ".join([str(elem) for elem in hidden_word])
+    hidden_word_to_string = " ".join([str(elem) for elem in hidden_word])
 
-    letra = input("Ingrese una letra: ")
-    for i in range(len(revealed_word)):
-        if revealed_word[i] == letra:
-            hidden_word[i] = letra
-            listToStr = " ".join([str(i) for i in hidden_word])
-    print(hidden_word)
-    print(listToStr)
-    # hidden_word[revealed_word.index(letra)] = letra
-    # listToStr = " ".join([str(elem) for elem in hidden_word])
-    # print(listToStr)
-
-    # while True:
-    #     os.system("clear")
-    #     print(revealed_word)
-    #     print(hidden_word)
-    #     print(size_word)
-    #     print(listToStr)
-    #     letra = input("Ingrese una letra: ")
-    #     filter_letter = filter(lambda a: letra in a, revealed_word)
-    #     print(filter_letter)
-    # if letra in revealed_word:
-    #     hidden_word[revealed_word.index(letra)] = letra
-    #     print(hidden_word)
-    # else:
-    #     continue
+    while hidden_word != revealed_word:
+        os.system("clear")
+        print(random_word)
+        print(hidden_word_to_string + "\n")
+        letra = input("Ingrese una letra: ")
+        for i in range(len(revealed_word)):
+            if revealed_word[i] == letra:
+                hidden_word[i] = letra
+                hidden_word_to_string = " ".join([str(i) for i in hidden_word])
+            else:
+                attempts += 1
+                continue
+    os.system("clear")
+    print(hidden_word_to_string + "\n")
+    print("Felicidades, ganaste!")
 
 
 def choice_word():
